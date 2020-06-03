@@ -70,42 +70,18 @@ void Object::move(Map *Maps[])
     mBox.y += mVelY;
 
     //If the Object went too far up or down or touched a wall
-    if ((mBox.y < 0) || (mBox.y + Object_HEIGHT > LEVEL_HEIGHT) || touchesWall(mBox, Maps))
+    if ((mBox.y < 0) || (mBox.y + Object_HEIGHT > SCREEN_HEIGHT) || touchesWall(mBox, Maps))
     {
         //move back
         mBox.y -= mVelY;
     }
 }
 
-void Object::setCamera(SDL_Rect& camera)
-{
-    //Center the camera over the Object
-    camera.x = (mBox.x + Object_WIDTH / 2) - SCREEN_WIDTH / 2;
-    camera.y = (mBox.y + Object_HEIGHT / 2) - SCREEN_HEIGHT / 2;
 
-    //Keep the camera in bounds
-    if (camera.x < 0)
-    {
-        camera.x = 0;
-    }
-    if (camera.y < 0)
-    {
-        camera.y = 0;
-    }
-    if (camera.x > LEVEL_WIDTH - camera.w)
-    {
-        camera.x = LEVEL_WIDTH - camera.w;
-    }
-    if (camera.y > LEVEL_HEIGHT - camera.h)
-    {
-        camera.y = LEVEL_HEIGHT - camera.h;
-    }
-}
-
-void Object::render(SDL_Rect& camera, SDL_Renderer* &des, Texture &gObjectTexture, SDL_Rect frame_[])
+void Object::render( SDL_Renderer* &des, Texture &gObjectTexture, SDL_Rect frame_[])
 {
     //Show the Object
-    gObjectTexture.render(mBox.x - camera.x, mBox.y - camera.y,des,&frame_[frame]);
+    gObjectTexture.render(mBox.x , mBox.y ,des,&frame_[frame]);
 }
 bool Object:: touchesWall(SDL_Rect box, Map* Maps[])
 {

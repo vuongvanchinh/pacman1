@@ -15,13 +15,14 @@ Map::Map( int x, int y, int MapType)
     mType = MapType;
 }
 
-void Map::render(SDL_Rect& camera , SDL_Renderer*& des, Texture &gMapTexture, SDL_Rect gMapClips[])
+void Map::render(SDL_Renderer*& des, Texture &gMapTexture, SDL_Rect gMapClips[])
 {
     //If the Map is on screen
+    SDL_Rect camera = { 0,0,SCREEN_WIDTH, SCREEN_HEIGHT };
     if (checkCollision(camera, mBox))
     {
         //Show the Map
-        gMapTexture.render(mBox.x - camera.x, mBox.y - camera.y, des, &gMapClips[mType]);
+        gMapTexture.render(mBox.x , mBox.y , des, &gMapClips[mType]);
     }
 }
 

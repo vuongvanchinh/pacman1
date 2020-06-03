@@ -37,8 +37,6 @@ Map* MapSet[TOTAL_MapS];
 vector<Object*>Dots;
 
 const int Velghost[4] = { -5,5,0 };// van toc cua ghost 
-//Level camera
-SDL_Rect camera = { 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT };
 //Scene textures
 Texture gObjectTexture;
 Texture gMapTexture;
@@ -413,7 +411,7 @@ bool setMaps(Map* Maps[])
 			x += Map_WIDTH;
 
 			//If we've gone too far
-			if (x >= LEVEL_WIDTH)
+			if (x >= SCREEN_WIDTH)
 			{
 				//Move back
 				x = 0;
@@ -542,7 +540,7 @@ void ShowMenu(bool &quit,Text Texts[], SDL_Rect &X )
 		SDL_SetRenderDrawColor(gRenderer, 0xFF, 0xFF, 0xFF, 0xFF);
 		SDL_RenderClear(gRenderer);
 
-		BackgroundMenu.render(camera, gRenderer, Background, NULL);
+		BackgroundMenu.render( gRenderer, Background, NULL);
 
 		Texts[0].RenderText(gRenderer, 100, 100, NULL);
 		Texts[1].RenderText(gRenderer, 100, 130, NULL);
@@ -597,8 +595,7 @@ void Game()
 
 		handleEatDot(Pacman, Dots);
 
-		Pacman.setCamera(camera);
-
+		
 		//Clear screen
 		SDL_SetRenderDrawColor(gRenderer, 0xFF, 0xFF, 0xFF, 0xFF);
 		SDL_RenderClear(gRenderer);
@@ -606,7 +603,7 @@ void Game()
 		//Render level
 		for (int i = 0; i < TOTAL_MapS; ++i)
 		{
-			MapSet[i]->render(camera, gRenderer, gMapTexture, gMapClips);
+			MapSet[i]->render( gRenderer, gMapTexture, gMapClips);
 
 		}
 
@@ -615,15 +612,15 @@ void Game()
 
 		for (int i = 0; i < Dots_Size; i++)
 		{
-			Dots[i]->render(camera, gRenderer, DotTexture, NULL);
+			Dots[i]->render( gRenderer, DotTexture, NULL);
 		}
 
 		//Render Pacman 
-		Pacman.render(camera, gRenderer, gObjectTexture, frame);
+		Pacman.render( gRenderer, gObjectTexture, frame);
 		//render Ghost 
 		for (int i = 0; i < TOTAL_GHOST; i++)
 		{
-			Ghosts[i].render(camera, gRenderer, GhostTexture, frame_ghost);
+			Ghosts[i].render( gRenderer, GhostTexture, frame_ghost);
 		}
 
 		//Update screen

@@ -9,7 +9,7 @@ public:
 	Map(int x, int y , int MapType);
 
 	//Shows the Map
-	void render(SDL_Rect& camera, SDL_Renderer*& des, Texture &gMapTexture,  SDL_Rect gMapClips[]);
+	void render( SDL_Renderer*& des, Texture &gMapTexture,  SDL_Rect gMapClips[]);
 
 	//Get the Map type
 	int getType();
